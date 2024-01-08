@@ -8,4 +8,14 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
+    app: {
+        head: {
+            script: [
+                {
+                    src: "https://kit.fontawesome.com/8b6552ddec.js",
+                    crossorigin: "anonymous",
+                },
+            ],
+        },
+    },
 });
