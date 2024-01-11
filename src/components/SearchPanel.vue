@@ -9,7 +9,7 @@
                     type="text"
                     id="tokenSearch"
                     class="p-2 border rounded-md outline-none"
-                    placeholder="Enter token name or address..."
+                    placeholder="Enter token address"
                     v-model="searchInput"
                 />
                 <button
