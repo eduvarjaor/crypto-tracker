@@ -26,6 +26,7 @@
 <script>
 import client from "../graphql/apollo-client";
 import { gql } from "@apollo/client/core";
+import axios from "axios";
 
 export default {
     data() {
@@ -34,10 +35,32 @@ export default {
         };
     },
     methods: {
+        async checkBSCTransactions(address) {
+            const apiKey = process.env.BSC_SCAN_API_KEY;
+
+            const url = `https://api.bscscan.com/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${apiKey}`;
+
+            try {
+                const response = await axios.get(url);
+                return response.data.result.length > 0;
+            } catch (error) {
+                console.error("Error checking Ethereum transactions:", error);
+                return false;
+            }
+        },
         async searchToken() {
+            const isEthereumAddress = await this.checkBSCTransactions(
+                this.searchInput
+            );
+
+            if (!isEthereumAddress) {
+                alert("Only addresses on the BSC mainnet are allowed.");
+                return;
+            }
+
             const GET_TRANSACTIONS = gql`
                 query GetTransactions($address: String!) {
-                    EVM(dataset: combined, network: eth) {
+                    EVM(dataset: realtime, network: bsc) {
                         Transfers(
                             limit: { count: 20 }
                             where: {
@@ -80,6 +103,7 @@ export default {
                 const response = await client.query({
                     query: GET_TRANSACTIONS,
                     variables: { address: this.searchInput },
+                    fetchPolicy: "no-cache",
                 });
 
                 const formattedTransactions = response.data.EVM.Transfers.map(
