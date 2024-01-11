@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ["~/assets/css/main.css"],
@@ -17,5 +16,12 @@ export default defineNuxtConfig({
                 },
             ],
         },
+    },
+    plugins: ["~/src/plugins/apollo.ts"],
+    runtimeConfig: {
+        public: {
+            bitQueryApiKey: process.env.NUXT_APP_BITQUERY_API_KEY,
+        },
+        private: {},
     },
 });

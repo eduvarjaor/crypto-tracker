@@ -60,18 +60,6 @@
 
 <script>
 export default {
-    data() {
-        return {
-            transactions: [
-                {
-                    hash: "0x...",
-                    sender: "0x...",
-                    receiver: "0x...",
-                    amount: "100",
-                    dateTime: "2024-01-01 12:00",
-                },
-            ],
-        };
-    },
+    props: ["transactions"],
 };
 </script>

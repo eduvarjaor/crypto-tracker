@@ -1,8 +1,8 @@
 <template>
     <div class="bg-slate-100 min-h-[100vh]">
         <Header />
-        <SearchPanel />
-        <TransactionDisplay />
+        <SearchPanel @transactionsUpdated="updateTransactions" />
+        <TransactionDisplay :transactions="transactions" />
     </div>
 </template>
 
@@ -16,6 +16,21 @@ export default {
         Header,
         SearchPanel,
         TransactionDisplay,
+    },
+    data() {
+        return {
+            transactions: [],
+        };
+    },
+    methods: {
+        updateTransactions(newTransactions) {
+            this.transactions = newTransactions.reduce((acc, current) => {
+                if (!acc.some((item) => item.hash === current.hash)) {
+                    acc.push(current);
+                }
+                return acc;
+            }, []);
+        },
     },
 };
 </script>
