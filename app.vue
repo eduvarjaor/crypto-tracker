@@ -1,8 +1,11 @@
 <template>
     <div class="bg-slate-100 min-h-[100vh]">
         <Header />
-        <SearchPanel @transactionsUpdated="updateTransactions" />
-        <TransactionDisplay :transactions="transactions" />
+        <SearchPanel
+            @transactionsUpdated="updateTransactions"
+            @updateLoading="handleLoading"
+        />
+        <TransactionDisplay :transactions="transactions" :loading="isLoading" />
     </div>
 </template>
 
@@ -20,6 +23,7 @@ export default {
     data() {
         return {
             transactions: [],
+            isLoading: false,
         };
     },
     methods: {
@@ -30,6 +34,9 @@ export default {
                 }
                 return acc;
             }, []);
+        },
+        handleLoading(isLoading) {
+            this.isLoading = isLoading;
         },
     },
 };

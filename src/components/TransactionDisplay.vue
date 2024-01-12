@@ -1,6 +1,9 @@
 <template>
     <div class="p-5">
-        <div class="overflow-x-auto rounded-lg shadow-md">
+        <div v-if="loading" class="loading-animation">
+            <span class="ml-2">Loading...</span>
+        </div>
+        <div v-else class="overflow-x-auto rounded-lg shadow-md">
             <table class="min-w-full text-sm divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
@@ -60,6 +63,34 @@
 
 <script>
 export default {
-    props: ["transactions"],
+    props: ["transactions", "loading"],
 };
 </script>
+
+<style>
+.loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.loading-animation::before {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #3498db;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+</style>
