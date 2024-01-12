@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white mt-5 h-[16vh] p-5 m-5 rounded-xl shadow-md">
+    <div class="bg-white mt-5 xl:h-[16vh] p-5 m-5 rounded-xl shadow-md">
         <div class="flex flex-col items-center justify-center">
             <label for="tokenSearch" class="mb-2 text-lg font-medium"
                 >Search a Token</label
@@ -13,7 +13,7 @@
                     v-model="searchInput"
                 />
                 <button
-                    class="p-2 w-[20%] bg-blue-500 hover:bg-blue-600 text-white rounded-md duration-150 ease-in-out"
+                    class="p-2 xl:w-[20%] bg-blue-500 hover:bg-blue-600 text-white rounded-md duration-150 ease-in-out"
                     @click="searchToken"
                 >
                     <i class="fa-solid fa-search"></i>
@@ -96,6 +96,7 @@ export default {
                 );
 
                 this.$emit("transactionsUpdated", formattedTransactions);
+                this.searchInput = "";
                 this.$emit("updateLoading", false);
             } catch (error) {
                 console.error(error);
