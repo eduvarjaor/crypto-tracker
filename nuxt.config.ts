@@ -21,7 +21,6 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             bitQueryApiKey: process.env.NUXT_APP_BITQUERY_API_KEY,
-            bscScanApiKey: process.env.BSC_SCAN_API_KEY,
         },
         private: {},
     },
